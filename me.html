@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmit | AIIT Amity Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --neon-pink: #ff0055;
+            --neon-blue: #00f2ff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Apple-style Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Glowing Background Elements */
+        .blob {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+            filter: blur(150px);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.15;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(100%, 50%); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* Hero Section */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(to bottom, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        /* Bento Grid (Apple Style) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+
+        /* Scroll Progress Bar */
+        #progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--neon-blue);
+            z-index: 101;
+            width: 0%;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="progress"></div>
+    <div class="blob"></div>
+
+    <nav>
+        <div class="logo">NIRMIT.EXE</div>
+        <div class="menu">AIIT @ AMITY</div>
+    </nav>
+
+    <section class="hero">
+        <h1>FUTURE READY.</h1>
+        <p>MCA Student | Amity University Mumbai</p>
+    </section>
+
+    <section id="about">
+        <div class="grid">
+            <div class="card">
+                <h3>01. Identity</h3>
+                <p>Nirmit, currently pursuing MCA (1st Year) at Amity Institute of Technology's AIIT school. Merging academic excellence with cyberpunk aesthetics.</p>
+            </div>
+            <div class="card">
+                <h3>02. Tech Stack</h3>
+                <p>Specializing in modern web architectures and AI integration. Building the next generation of digital experiences.</p>
+            </div>
+            <div class="card">
+                <h3>03. Vision</h3>
+                <p>Applying Amity's world-class education to solve real-world problems through clean code and immersive design.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 NIRMIT | AMITY UNIVERSITY MUMBAI | SYSTEM_STABLE
+    </footer>
+
+    <script>
+        // Progress Bar Logic
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
+        };
+
+        // Scroll Reveal Animation (The Apple Effect)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
